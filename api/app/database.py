@@ -1,28 +1,7 @@
-from sqlalchemy import create_engine
+from .config import get_engine
+
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import NullPool
-from dotenv import load_dotenv
-import os
-
-# Load environment variables
-load_dotenv()
-
-def get_engine():
-    # Database configuration
-    DEV_MODE = os.getenv("DEV_MODE")
-    print(f"DEV_MODE: {DEV_MODE}")
-
-    connection_url = None
-    
-    if DEV_MODE:    
-        connection_url = "sqlite:///dev.db"
-        print("Using SQLite engine")
-        return create_engine(connection_url, echo=True)
-    else:
-        connection_url = os.getenv("SUPABASE_DB_CONNECTION_STRING")
-        print("Using Supabase engine")
-        return create_engine(connection_url, client_encoding='utf8', poolclass=NullPool)
 
 engine = get_engine()
 
@@ -38,9 +17,10 @@ def get_db():
         db.close()
 
 def create_db_and_tables():
-    """Initialize database and create all tables"""
+    print("Initializing database and creating all tables")
     try:
         Base.metadata.create_all(bind=engine)
+        print("Database tables created successfully")
     except Exception as e:
         print(f"Failed to create database tables: {e}")
         raise
