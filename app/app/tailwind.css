@@ -4,9 +4,74 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-background dark:bg-gray-950;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 60 6% 92%; /* EDEDE9 - light gray */
+    --foreground: 240 10% 3.9%;
+    --card: 60 6% 92%; /* EDEDE9 - light gray */
+    --card-foreground: 240 10% 3.9%;
+    --popover: 60 6% 92%; /* EDEDE9 - light gray */
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 33 18% 80%; /* D6CCC2 - brown for clickable buttons */
+    --primary-foreground: 0 0% 20%; /* Darker text on primary buttons */
+    --secondary: 33 43% 92%; /* F5EBE0 - light beige */
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 27 29% 84%; /* E3D5CA - beige */
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 24 32% 76%; /* D5BDAF - darker beige */
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 33 18% 80%; /* D6CCC2 - brown */
+    --input: 33 18% 80%; /* D6CCC2 - brown */
+    --ring: 33 18% 80%; /* D6CCC2 - brown */
+    --chart-1: 24 32% 76%; /* D5BDAF */
+    --chart-2: 27 29% 84%; /* E3D5CA */
+    --chart-3: 33 43% 92%; /* F5EBE0 */
+    --chart-4: 33 18% 80%; /* D6CCC2 */
+    --chart-5: 60 6% 92%; /* EDEDE9 */
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 24 32% 36%; /* Darker version of D5BDAF */
+    --foreground: 33 43% 92%; /* F5EBE0 - light beige */
+    --card: 24 32% 36%; /* Darker version of D5BDAF */
+    --card-foreground: 33 43% 92%; /* F5EBE0 - light beige */
+    --popover: 24 32% 36%; /* Darker version of D5BDAF */
+    --popover-foreground: 33 43% 92%; /* F5EBE0 - light beige */
+    --primary: 33 18% 60%; /* Darker version of D6CCC2 */
+    --primary-foreground: 60 6% 92%; /* EDEDE9 - light gray */
+    --secondary: 27 29% 44%; /* Darker version of E3D5CA */
+    --secondary-foreground: 33 43% 92%; /* F5EBE0 - light beige */
+    --muted: 27 29% 44%; /* Darker version of E3D5CA */
+    --muted-foreground: 33 43% 82%; /* Lighter version of F5EBE0 */
+    --accent: 24 32% 46%; /* Darker version of D5BDAF */
+    --accent-foreground: 33 43% 92%; /* F5EBE0 - light beige */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 33 18% 60%; /* Darker version of D6CCC2 */
+    --input: 33 18% 60%; /* Darker version of D6CCC2 */
+    --ring: 33 43% 92%; /* F5EBE0 - light beige */
+    --chart-1: 24 32% 66%; /* Lighter D5BDAF */
+    --chart-2: 27 29% 74%; /* Lighter E3D5CA */
+    --chart-3: 33 43% 82%; /* Lighter F5EBE0 */
+    --chart-4: 33 18% 70%; /* Lighter D6CCC2 */
+    --chart-5: 60 6% 82%; /* Lighter EDEDE9 */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
