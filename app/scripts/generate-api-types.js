@@ -12,7 +12,7 @@ async function generateTypes() {
   try {
     // Fetch the OpenAPI schema
     const response = await fetch(
-      'https://where-is-my-money-api.vercel.app//openapi.json'
+      'https://where-is-my-money-api.vercel.app/openapi.json'
     );
 
     if (!response.ok) {

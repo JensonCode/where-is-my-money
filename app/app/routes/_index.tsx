@@ -1,5 +1,10 @@
 import type { MetaFunction } from '@remix-run/node';
-import { Button } from '../components/ui/button';
+
+import { loginAction } from '~/actions/auth.server';
+import LoginForm from '~/components/login-form';
+
+
+
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,10 +13,13 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const action = loginAction
+
 export default function Index() {
+
   return (
     <div>
-      <Button>asdasd</Button>
+      <LoginForm />
     </div>
   );
 }
