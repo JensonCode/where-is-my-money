@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models.user import User
 from ..internal.bcrypt import Bcrypt
-from ..schemas.user import UserLogin
+from ..schemas.user import LoginFormData
+
 DEFAULT_USERS = [
     {
         "username": "admin",
@@ -36,7 +37,7 @@ class UserService:
         
         self.db.commit() 
 
-    def authenticate_user(self, login_form_data: UserLogin) -> User:
+    def authenticate_user(self, login_form_data: LoginFormData) -> User:
         user = self.db.query(User).filter(User.username == login_form_data.username).first()
         if not user:
             return None
