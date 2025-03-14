@@ -1,8 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from .database import create_db_and_tables, get_db
 from .services.user import UserService
-from .routers import user
+from .routers import user, expense
+from .internal.jwt import get_current_user
 
 app = FastAPI(
     title="Where Is My Money API",
@@ -29,6 +30,7 @@ user_service.init_default_users()
 
 # Include routers
 app.include_router(user.router)
+app.include_router(expense.router, dependencies=[Depends(get_current_user)])
 
 @app.get("/")
 async def root():

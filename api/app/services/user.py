@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models.user import User
 from ..internal.bcrypt import Bcrypt
-from ..schemas.user import LoginFormData
+from fastapi.security import OAuth2PasswordRequestForm
 
 DEFAULT_USERS = [
     {
@@ -37,7 +37,7 @@ class UserService:
         
         self.db.commit() 
 
-    def authenticate_user(self, login_form_data: LoginFormData) -> User:
+    def authenticate_user(self, login_form_data: OAuth2PasswordRequestForm) -> User:
         user = self.db.query(User).filter(User.username == login_form_data.username).first()
         if not user:
             return None
