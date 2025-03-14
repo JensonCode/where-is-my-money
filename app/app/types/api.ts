@@ -59,28 +59,17 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /** Body_login_users_login_post */
-        Body_login_users_login_post: {
-            /** Grant Type */
-            grant_type?: string | null;
-            /** Username */
-            username: string;
-            /** Password */
-            password: string;
-            /**
-             * Scope
-             * @default
-             */
-            scope: string;
-            /** Client Id */
-            client_id?: string | null;
-            /** Client Secret */
-            client_secret?: string | null;
-        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
+        };
+        /** LoginFormData */
+        LoginFormData: {
+            /** Username */
+            username: string;
+            /** Password */
+            password: string;
         };
         /** LoginResponse */
         LoginResponse: {
@@ -116,7 +105,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/x-www-form-urlencoded": components["schemas"]["Body_login_users_login_post"];
+                "application/json": components["schemas"]["LoginFormData"];
             };
         };
         responses: {

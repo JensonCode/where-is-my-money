@@ -1,41 +1,43 @@
-import type { components } from "~/types/api"
+import { LoginFormData, LoginResponse } from '../types/login';
+import { getValidationErrors } from '../lib/api-error';
+import { createUserSession } from '../utils/auth';
 
-type LoginFormData = components["schemas"]["Body_login_users_login_post"]
-type LoginResponse = components["schemas"]["LoginResponse"]
-type ValidationError = components["schemas"]["HTTPValidationError"]
-
-const API_URL = process.env.API_BASE_URL + "/users/login"
+const API_URL = process.env.API_BASE_URL + '/users/login';
 
 export async function loginAction(formData: LoginFormData) {
-    try {
-        const formBody = new URLSearchParams()
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
 
-        Object.entries(formData).forEach(([key, value]) => {
-            if (value !== null) {
-                formBody.append(key, value)
-            }
-        })
+    if (!response.ok) {
+      if (response.status === 422) {
+        const error = await response.json();
+        const formErrors = getValidationErrors(error);
 
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: formBody,
-        })
+        return {
+          errors: { form: JSON.stringify(formErrors) },
+          success: false,
+        };
+      }
 
-        if (!response.ok) {
-            console.log(response)
-
-            return Response.json({ errors: "Login failed", success: false })
-        }
-
-        const data = await response.json()
-        console.log(data)
-
-        return Response.json({ errors: "Login success", success: true })
+      return {
+        errors: { form: 'Invalid credentials' },
+        success: false,
+      };
     }
-    catch (error) {
-        console.error(error)
-    }
+
+    const loginResponse = (await response.json()) as LoginResponse;
+
+    return createUserSession(loginResponse.access_token, '/dashbroad');
+  } catch (error) {
+    return {
+      errors: { form: 'Failed to login. Please try again.' },
+      success: false,
+    };
+  }
 }

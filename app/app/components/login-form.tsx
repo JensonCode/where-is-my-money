@@ -1,45 +1,59 @@
-import { Form, } from "@remix-run/react";
-import { Button } from "./ui/button";
+import { Form, useNavigation } from '@remix-run/react';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Loader2 } from 'lucide-react';
 
 export default function LoginForm() {
+  const navigation = useNavigation();
 
-    return (
-        <Form method="post">
+  return (
+    <Form method='post'>
+      <div className='rounded-md -space-y-px border border-gray-300 p-5 gap-6 grid grid-cols-1'>
+        <div>
+          <label
+            htmlFor='username'
+            className='block text-sm font-medium text-gray-700'
+          >
+            Username
+          </label>
+          <Input
+            id='username'
+            name='username'
+            type='text'
+            autoComplete='username'
+            required
+            placeholder='Username'
+          />
+        </div>
 
-            <div className="rounded-md -space-y-px">
-                <div className="mb-4">
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                        Username
-                    </label>
-                    <input
-                        id="username"
-                        name="username"
-                        type="text"
-                        autoComplete="username"
-                        required
-                        className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                        placeholder="Username"
-                    />
+        <div>
+          <label
+            htmlFor='password'
+            className='block text-sm font-medium text-gray-700'
+          >
+            Password
+          </label>
+          <Input
+            id='password'
+            name='password'
+            type='password'
+            autoComplete='current-password'
+            required
+            placeholder='Password'
+          />
+        </div>
 
-                </div>
-
-                <div className="mb-4">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                        Password
-                    </label>
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        autoComplete="current-password"
-                        required
-                        className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                        placeholder="Password"
-                    />
-
-                </div>
-                <Button type="submit">Submit</Button>
-            </div>
-        </Form>
-    )
+        <Button
+          type='submit'
+          disabled={navigation.state === 'submitting'}
+        >
+          {navigation.state === 'submitting' ? (
+            <Loader2 className='size-4 animate-spin' />
+          ) : (
+            'Login'
+          )}
+        </Button>
+      </div>
+    </Form>
+  );
 }
