@@ -13,6 +13,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const data: LoginFormData = {
     username: formData.get('username')?.toString() ?? '',
     password: formData.get('password')?.toString() ?? '',
+    scope: '',
   };
 
   return await loginAction(data);

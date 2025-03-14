@@ -15,9 +15,9 @@
         "operationId": "login_users_login_post",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/LoginFormData"
+                "$ref": "#/components/schemas/Body_login_users_login_post"
               }
             }
           },
@@ -45,6 +45,30 @@
             }
           }
         }
+      }
+    },
+    "/expenses/": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Get Expenses",
+        "operationId": "get_expenses_expenses__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
       }
     },
     "/": {
@@ -82,6 +106,63 @@
   },
   "components": {
     "schemas": {
+      "Body_login_users_login_post": {
+        "properties": {
+          "grant_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^password$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grant Type"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": ""
+          },
+          "client_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id"
+          },
+          "client_secret": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Secret"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "Body_login_users_login_post"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -94,24 +175,6 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
-      },
-      "LoginFormData": {
-        "properties": {
-          "username": {
-            "type": "string",
-            "title": "Username"
-          },
-          "password": {
-            "type": "string",
-            "title": "Password"
-          }
-        },
-        "type": "object",
-        "required": [
-          "username",
-          "password"
-        ],
-        "title": "LoginFormData"
       },
       "LoginResponse": {
         "properties": {
@@ -163,6 +226,17 @@
           "type"
         ],
         "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "scopes": {},
+            "tokenUrl": "users/login"
+          }
+        }
       }
     }
   }

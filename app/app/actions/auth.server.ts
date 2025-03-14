@@ -6,12 +6,14 @@ const API_URL = process.env.API_BASE_URL + '/users/login';
 
 export async function loginAction(formData: LoginFormData) {
   try {
+    const requestBody = new FormData();
+
+    requestBody.append('username', formData.username);
+    requestBody.append('password', formData.password);
+
     const response = await fetch(API_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
+      body: requestBody,
     });
 
     if (!response.ok) {
