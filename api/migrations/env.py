@@ -6,20 +6,20 @@ from sqlalchemy import pool
 from alembic import context
 
 from app.database.database import Base
+
 import os
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
-# Override the sqlalchemy.url with the one from your config
 def get_db_url():
     DEV_MODE = os.getenv("DEV_MODE")
     if DEV_MODE:
         return "sqlite:///dev.db"
     else:
         return os.getenv("SUPABASE_DB_CONNECTION_STRING")
-
+    
 config.set_main_option("sqlalchemy.url", get_db_url())
 
 # Interpret the config file for Python logging.
@@ -33,9 +33,7 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 target_metadata = Base.metadata
 
-# Import all models to ensure they're registered with Base.metadata
-# This is important for Alembic to detect all model changes
-from app.models import expense, user  # Import all your models
+from app.models import expense, user
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
