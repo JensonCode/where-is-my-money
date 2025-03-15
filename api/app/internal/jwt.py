@@ -7,7 +7,7 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
 from ..models.user import User
-from ..database import get_db
+from ..database.database import get_db
 
 load_dotenv()
 

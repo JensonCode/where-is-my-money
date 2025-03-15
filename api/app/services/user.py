@@ -1,6 +1,6 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from ..database import get_db
+from ..database.database import get_db
 from ..models.user import User
 from ..internal.bcrypt import Bcrypt
 from fastapi.security import OAuth2PasswordRequestForm

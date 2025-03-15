@@ -1,8 +1,13 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from .database import create_db_and_tables, get_db
+
+from .database.database import create_db_and_tables, get_db
+from .database.migrate import check_migrations
+
 from .services.user import UserService
+
 from .routers import user, expense
+
 from .internal.jwt import get_current_user
 
 app = FastAPI(
@@ -22,6 +27,7 @@ app.add_middleware(
 
 # Create database tables
 create_db_and_tables()
+check_migrations()
 
 # Initialize default users
 db = next(get_db())

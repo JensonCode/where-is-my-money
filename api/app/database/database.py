@@ -1,4 +1,4 @@
-from .config import get_engine
+from ..config import get_engine
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
