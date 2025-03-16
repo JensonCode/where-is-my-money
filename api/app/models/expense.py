@@ -23,5 +23,8 @@ class Expense(Base):
     
     paid_by = Column(Integer, ForeignKey('users.id'), nullable=False)
     user = relationship("User", back_populates="expenses")
+    
+    category_id = Column(Integer, ForeignKey('expense_categories.id'), nullable=False)
+    category = relationship("ExpenseCategory", back_populates="expenses")
 
 
