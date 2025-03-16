@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from .database.database import create_db_and_tables, get_db
 from .database.migrate import check_migrations
 
-from .services.user import UserService
+# Import DefaultData from the new location
+from .initializers.default_data import DefaultData
 
 from .routers import user, expense
 
@@ -31,8 +32,9 @@ check_migrations()
 
 # Initialize default users
 db = next(get_db())
-user_service = UserService(db)
-user_service.init_default_users()
+default_data = DefaultData(db)
+default_data.init_default_users()
+default_data.init_default_expense_categories()
 
 # Include routers
 app.include_router(user.router)
