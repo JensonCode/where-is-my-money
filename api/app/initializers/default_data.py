@@ -3,7 +3,7 @@ from fastapi import Depends
 from ..database.database import get_db
 from ..models.user import User
 from ..models.expense_category import ExpenseCategory
-
+from ..deps.bcrypt import Bcrypt
 class DefaultData:
     def __init__(self, db: Session = Depends(get_db)):
         self.db = db
@@ -18,30 +18,51 @@ class DefaultData:
 
         self.expense_categories = [
             {
-                "name": "Food"
+                "name": "Groceries"
+            },
+            {
+                "name": "Restaurants"
+            },
+            {
+                "name": "Healthcare"
+            },
+            {
+                "name": "Shopping"
             },
             {
                 "name": "Transportation"
             },
             {
                 "name": "Entertainment"
+            },
+            {
+                "name": "Gifts"
+            },
+            {
+                "name": "Luxury"
+            },
+            {
+                "name": "Other"
             }
         ]
 
     def init_default_users(self):
         print("Initializing default users")
-        if self.db.query(User).count() > 0:
+        if self.db.query(User).count() >= len(self.users):
             print("Users were already initialized")
             return
         
         for user in self.users:
+            hashed_password = Bcrypt.hash_password(user["password"])
+            user["password"] = hashed_password
+            
             new_user = User(**user)
             self.db.add(new_user)
             self.db.commit()
     
     def init_default_expense_categories(self):
         print("Initializing default expense categories")
-        if self.db.query(ExpenseCategory).count() > 0:
+        if self.db.query(ExpenseCategory).count() >= len(self.expense_categories):
             print("Expense categories were already initialized")
             return
         

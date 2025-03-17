@@ -7,9 +7,9 @@ from .database.migrate import check_migrations
 # Import DefaultData from the new location
 from .initializers.default_data import DefaultData
 
-from .routers import user, expense
+from .routers import user, expense, expense_category
 
-from .internal.jwt import get_current_user
+from .deps.jwt import get_current_user
 
 app = FastAPI(
     title="Where Is My Money API",
@@ -38,6 +38,7 @@ default_data.init_default_expense_categories()
 
 # Include routers
 app.include_router(user.router)
+app.include_router(expense_category.router, dependencies=[Depends(get_current_user)])
 app.include_router(expense.router, dependencies=[Depends(get_current_user)])
 
 @app.get("/")

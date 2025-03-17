@@ -19,12 +19,12 @@ class Expense(Base):
     settled_at = Column(DateTime, nullable=True, default=None)
     
     created_at = Column(DateTime, default=datetime.now())
-    updated_at = Column(DateTime, default=datetime.now())
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     
-    paid_by = Column(Integer, ForeignKey('users.id'), nullable=False)
-    user = relationship("User", back_populates="expenses")
+    paid_by_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    paid_by = relationship("User", back_populates="expenses")
     
-    category_id = Column(Integer, ForeignKey('expense_categories.id'), nullable=False)
-    category = relationship("ExpenseCategory", back_populates="expenses")
+    expense_category_id = Column(Integer, ForeignKey('expense_categories.id'), nullable=False)
+    expense_category = relationship("ExpenseCategory", back_populates="expenses")
 
 

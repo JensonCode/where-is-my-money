@@ -11,6 +11,6 @@ class User(Base):
     password = Column(String)
     nickname = Column(String)
     created_at = Column(DateTime, default=datetime.now())
-    updated_at = Column(DateTime, default=datetime.now())
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     
-    expenses = relationship("Expense", back_populates="user")
+    expenses = relationship("Expense", back_populates="paid_by")
