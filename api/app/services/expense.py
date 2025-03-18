@@ -1,9 +1,7 @@
-from fastapi import Depends, HTTPException
+from fastapi import Depends
 from sqlalchemy.orm import Session, joinedload
 from ..database.database import get_db
 from ..models.expense import Expense
-from ..models.user import User
-from ..models.expense_category import ExpenseCategory
 from ..schemas.expense import ExpenseRequest
 from ..services.user import UserService
 from ..services.expense_category import ExpenseCategoryService

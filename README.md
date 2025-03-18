@@ -46,7 +46,7 @@ DEV_MODE=True
 Ensure the virtual environment is activated, then run:
 
 ```sh
-uvicorn api.app.main:app --reload
+cd api && fastapi dev
 ```
 
 ## Stopping Development

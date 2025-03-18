@@ -1,11 +1,11 @@
 
 from fastapi import APIRouter, Depends, HTTPException
 from ..services.expense import ExpenseService
-from ..schemas.expense import  ExpenseRequest
+from ..schemas.expense import ExpenseRequest, ExpenseResponse
 
 router = APIRouter(prefix="/expenses", tags=["expenses"])
 
-@router.get("/")
+@router.get("/", response_model = ExpenseResponse)
 async def get_expenses(expense_service: ExpenseService = Depends()):
     expenses = expense_service.get_expenses()
     if expenses is None:
@@ -13,7 +13,7 @@ async def get_expenses(expense_service: ExpenseService = Depends()):
     
     return expenses
 
-@router.get("/{expense_id}")
+@router.get("/{expense_id}", response_model = list[ExpenseResponse])
 async def get_expense(expense_id: int, expense_service: ExpenseService = Depends()):
     expense = expense_service.get_expense_by_id(expense_id)
     if not expense:
@@ -21,7 +21,7 @@ async def get_expense(expense_id: int, expense_service: ExpenseService = Depends
     
     return expense
 
-@router.post("/",)
+@router.post("/", response_model = ExpenseResponse)
 async def create_expense(expense_form_data: ExpenseRequest, expense_service: ExpenseService = Depends()):
     if not expense_service.user_service.get_user_by_id(expense_form_data.paid_by_id):
         raise HTTPException(status_code=404, detail="User not found")
@@ -35,7 +35,7 @@ async def create_expense(expense_form_data: ExpenseRequest, expense_service: Exp
 
     return new_expense
 
-@router.put("/{expense_id}")
+@router.put("/{expense_id}", response_model = ExpenseResponse)
 async def update_expense(expense_id: int, expense_form_data: ExpenseRequest, expense_service: ExpenseService = Depends()):   
     if not expense_service.get_expense_by_id(expense_id):
         raise HTTPException(status_code=404, detail="Expense not found")

@@ -13,4 +13,8 @@ class ExpenseCategoryBase(BaseModel):
 class ExpenseCategoryRequest(BaseModel):
     name: str
 
-
+class ExpenseCategoryResponse(BaseModel):
+    id: int
+    name: str
+    created_at: datetime
+    updated_at: datetime
