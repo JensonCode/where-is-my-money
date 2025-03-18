@@ -1,20 +1,15 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-
 from .database.database import create_db_and_tables, get_db
 from .database.migrate import check_migrations
-
-# Import DefaultData from the new location
 from .initializers.default_data import DefaultData
-
 from .routers import user, expense, expense_category
-
 from .deps.jwt import get_current_user
 
 app = FastAPI(
     title="Where Is My Money API",
     description="API for Where Is My Money, the app that tracks personal finances",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 # Configure CORS
@@ -41,14 +36,18 @@ app.include_router(user.router)
 app.include_router(expense_category.router, dependencies=[Depends(get_current_user)])
 app.include_router(expense.router, dependencies=[Depends(get_current_user)])
 
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to Where Is My Money API"}
+
 
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
 
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)

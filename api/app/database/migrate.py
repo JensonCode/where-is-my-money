@@ -6,8 +6,10 @@ import os
 
 def check_migrations():
     try:
-        alembic_cfg = Config(os.path.join(os.path.dirname(__file__), "../../alembic.ini"))
-        
+        alembic_cfg = Config(
+            os.path.join(os.path.dirname(__file__), "../../alembic.ini")
+        )
+
         try:
             # Try to check if migrations are up to date
             command.check(alembic_cfg)

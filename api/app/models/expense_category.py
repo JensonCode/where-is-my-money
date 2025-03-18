@@ -3,6 +3,7 @@ from datetime import datetime
 from sqlalchemy.orm import relationship
 from ..database.database import Base
 
+
 class ExpenseCategory(Base):
     __tablename__ = "expense_categories"
 
