@@ -16,17 +16,17 @@ export async function loginAction(formData: LoginFormData) {
       body: requestBody,
     });
 
+    if (response.status === 422) {
+      const error = await response.json();
+      const formErrors = getValidationErrors(error);
+
+      return {
+        errors: { form: JSON.stringify(formErrors) },
+        success: false,
+      };
+    }
+
     if (!response.ok) {
-      if (response.status === 422) {
-        const error = await response.json();
-        const formErrors = getValidationErrors(error);
-
-        return {
-          errors: { form: JSON.stringify(formErrors) },
-          success: false,
-        };
-      }
-
       return {
         errors: { form: 'Invalid credentials' },
         success: false,
