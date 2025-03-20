@@ -4,10 +4,15 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from '@remix-run/react';
 import type { LinksFunction, MetaFunction } from '@remix-run/node';
 
 import './tailwind.css';
+import Nav from './components/nav';
+import AdminLayout from './components/layout/admin';
+import { LoaderFunctionArgs, redirect } from '@remix-run/node';
+import { getUserToken } from './utils/auth';
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -29,7 +34,25 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export async function loader({ request }: LoaderFunctionArgs) {
+ 
+  const token = await getUserToken(request);
+  if (!token) {
+    throw redirect('/');
+  }
+
+  const url = new URL(request.url);
+  if (url.pathname === '/' && token) {
+    throw redirect('/dashbroad');
+  }
+
+  const isAdmin = token ? true : false
+  return { isAdmin };
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { isAdmin } = useLoaderData<typeof loader>();
+
   return (
     <html lang='en'>
       <head>
@@ -42,7 +65,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <AdminLayout isAdmin={isAdmin}>
+          {children}
+        </AdminLayout>
         <ScrollRestoration />
         <Scripts />
       </body>
