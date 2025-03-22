@@ -35,7 +35,7 @@ export async function loginAction(formData: LoginFormData) {
 
     const loginResponse = (await response.json()) as LoginResponse;
 
-    return createUserSession(loginResponse.access_token, '/dashbroad');
+    return createUserSession(loginResponse.access_token, '/admin');
   } catch (error) {
     return {
       errors: { form: 'Failed to login. Please try again.' },

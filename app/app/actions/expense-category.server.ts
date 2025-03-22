@@ -1,4 +1,4 @@
-import type { ExpenseCategoryResponse } from '../types/expense-category';
+import type { ExpenseCategoryFormData, ExpenseCategoryResponse } from '../types/expense-category';
 import { getValidationErrors } from '../lib/api-error';
 
 const API_URL = process.env.API_BASE_URL + '/expense-categories';
@@ -43,7 +43,7 @@ export async function getExpenseCategoriesAction(token: string) {
   }
 }
 
-export async function createExpenseCategoryAction(token: string, name: string) {
+export async function createExpenseCategoryAction(token: string, formData: ExpenseCategoryFormData) {
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
@@ -51,7 +51,7 @@ export async function createExpenseCategoryAction(token: string, name: string) {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify(formData),
     });
 
     if (response.status === 422) {

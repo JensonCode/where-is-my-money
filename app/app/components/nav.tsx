@@ -3,6 +3,8 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import AddExpenseDrawer from "./add-expense-drawer";
 
 import { Menu } from "lucide-react";
+import React from "react";
+import AddExpenseCategoryDialog from "./add-expense-category-dialog";
 
 export default function Nav() {
   return (
@@ -20,18 +22,25 @@ export default function Nav() {
               <SheetContent className="py-10">
                 <AddExpenseDrawer />
 
-                <nav>
-                  <ul className="flex h-full flex-col items-start gap-4 p-4">
+                <nav className="flex h-full flex-col items-start gap-4 p-4">
+                  <NavGroup>
                     <li>
                       <span>Check every Expense Record</span>
                     </li>
+                  </NavGroup>
+                  <NavGroup>
                     <li>
                       <span>Manage Expense Categories</span>
                     </li>
                     <li>
+                      <AddExpenseCategoryDialog/>
+                    </li>
+                  </NavGroup>
+                  <NavGroup>
+                    <li>
                       <span>Manage Shortcuts</span>
                     </li>
-                  </ul>
+                  </NavGroup>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -41,3 +50,9 @@ export default function Nav() {
     </header>
   );
 }
+
+const NavGroup = ({ children }: { children: React.ReactNode }) => {
+  return <ul className="flex h-full flex-col items-start gap-4 p-4">{children}</ul>;
+}
+
+

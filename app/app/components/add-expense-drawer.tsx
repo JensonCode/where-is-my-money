@@ -12,6 +12,7 @@ import {
   DrawerTrigger,
 } from "./ui/drawer";
 import { Button } from "./ui/button";
+import { Label } from "./ui/label";
 
 import { SquarePlus } from "lucide-react";
 
@@ -54,7 +55,7 @@ function CreateExpenseForm() {
   return (
     <Form id="create-expense-form" method="post">
       <div>
-        <label htmlFor="category">Category</label>
+        <Label htmlFor="category">Category</Label>
 
         {expenseCategories?.map((category) => (
           <div key={category.id}>{category.name}</div>
