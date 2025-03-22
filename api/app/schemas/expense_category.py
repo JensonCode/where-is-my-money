@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from pydantic.config import ConfigDict
 from datetime import datetime
 
@@ -15,7 +15,7 @@ class ExpenseCategoryBase(BaseModel):
 
 class ExpenseCategoryRequest(BaseModel):
     name: str
-    icon: str
+    icon: str = Field(default="dummy-icon")
 
 
 class ExpenseCategoryResponse(BaseModel):

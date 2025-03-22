@@ -13,15 +13,15 @@ class DefaultData:
         self.users = [{"username": "admin", "password": "admin", "nickname": "Admin"}]
 
         self.expense_categories = [
-            {"name": "Groceries"},
-            {"name": "Restaurants"},
-            {"name": "Healthcare"},
-            {"name": "Shopping"},
-            {"name": "Transportation"},
-            {"name": "Entertainment"},
-            {"name": "Gifts"},
-            {"name": "Luxury"},
-            {"name": "Other"},
+            {"name": "Groceries", "icon": "dummy-icon"},
+            {"name": "Restaurants", "icon": "dummy-icon"},
+            {"name": "Healthcare", "icon": "dummy-icon"},
+            {"name": "Shopping", "icon": "dummy-icon"},
+            {"name": "Transportation", "icon": "dummy-icon"},
+            {"name": "Entertainment", "icon": "dummy-icon"},
+            {"name": "Gifts", "icon": "dummy-icon"},
+            {"name": "Luxury", "icon": "dummy-icon"},
+            {"name": "Other", "icon": "dummy-icon"},
         ]
 
     def init_default_users(self):
