@@ -8,7 +8,8 @@ class ExpenseCategory(Base):
     __tablename__ = "expense_categories"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
+    name = Column(String, nullable=False, unique=True)
+    icon = Column(String)
     created_at = Column(DateTime, default=datetime.now())
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 

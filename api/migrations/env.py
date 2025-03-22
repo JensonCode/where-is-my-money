@@ -13,13 +13,15 @@ import os
 # access to the values within the .ini file in use.
 config = context.config
 
+
 def get_db_url():
     DEV_MODE = os.getenv("DEV_MODE")
     if DEV_MODE:
         return "sqlite:///dev.db"
     else:
         return os.getenv("SUPABASE_DB_CONNECTION_STRING")
-    
+
+
 config.set_main_option("sqlalchemy.url", get_db_url())
 
 # Interpret the config file for Python logging.
@@ -32,8 +34,6 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 target_metadata = Base.metadata
-
-from app.models import expense, user, expense_category
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -79,9 +79,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

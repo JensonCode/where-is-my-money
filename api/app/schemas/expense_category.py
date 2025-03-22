@@ -6,6 +6,7 @@ from datetime import datetime
 class ExpenseCategoryBase(BaseModel):
     id: int
     name: str
+    icon: str
     created_at: datetime
     updated_at: datetime
 
@@ -14,10 +15,12 @@ class ExpenseCategoryBase(BaseModel):
 
 class ExpenseCategoryRequest(BaseModel):
     name: str
+    icon: str
 
 
 class ExpenseCategoryResponse(BaseModel):
     id: int
     name: str
+    icon: str
     created_at: datetime
     updated_at: datetime
