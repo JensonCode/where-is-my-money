@@ -587,6 +587,10 @@
             "type": "string",
             "title": "Name"
           },
+          "icon": {
+            "type": "string",
+            "title": "Icon"
+          },
           "created_at": {
             "type": "string",
             "format": "date-time",
@@ -602,6 +606,7 @@
         "required": [
           "id",
           "name",
+          "icon",
           "created_at",
           "updated_at"
         ],
@@ -612,11 +617,16 @@
           "name": {
             "type": "string",
             "title": "Name"
+          },
+          "icon": {
+            "type": "string",
+            "title": "Icon"
           }
         },
         "type": "object",
         "required": [
-          "name"
+          "name",
+          "icon"
         ],
         "title": "ExpenseCategoryRequest"
       },
@@ -630,6 +640,10 @@
             "type": "string",
             "title": "Name"
           },
+          "icon": {
+            "type": "string",
+            "title": "Icon"
+          },
           "created_at": {
             "type": "string",
             "format": "date-time",
@@ -645,6 +659,7 @@
         "required": [
           "id",
           "name",
+          "icon",
           "created_at",
           "updated_at"
         ],

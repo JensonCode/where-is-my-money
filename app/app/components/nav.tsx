@@ -1,10 +1,9 @@
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 import AddExpenseDrawer from "./add-expense-drawer";
+import AddExpenseCategoryDialog from "./add-expense-category-dialog";
 
 import { Menu } from "lucide-react";
-import React from "react";
-import AddExpenseCategoryDialog from "./add-expense-category-dialog";
 
 export default function Nav() {
   return (
@@ -33,7 +32,7 @@ export default function Nav() {
                       <span>Manage Expense Categories</span>
                     </li>
                     <li>
-                      <AddExpenseCategoryDialog/>
+                      <AddExpenseCategoryDialog />
                     </li>
                   </NavGroup>
                   <NavGroup>
@@ -52,7 +51,7 @@ export default function Nav() {
 }
 
 const NavGroup = ({ children }: { children: React.ReactNode }) => {
-  return <ul className="flex h-full flex-col items-start gap-4 p-4">{children}</ul>;
-}
-
-
+  return (
+    <ul className="flex h-full flex-col items-start gap-4 p-4">{children}</ul>
+  );
+};

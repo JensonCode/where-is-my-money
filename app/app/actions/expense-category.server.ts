@@ -1,7 +1,10 @@
-import type { ExpenseCategoryFormData, ExpenseCategoryResponse } from '../types/expense-category';
-import { getValidationErrors } from '../lib/api-error';
+import type {
+  ExpenseCategoryFormData,
+  ExpenseCategoryResponse,
+} from "../types/expense-category";
+import { getValidationErrors } from "../lib/api-error";
 
-const API_URL = process.env.API_BASE_URL + '/expense-categories';
+const API_URL = process.env.API_BASE_URL + "/expense-categories";
 
 export async function getExpenseCategoriesAction(token: string) {
   try {
@@ -11,20 +14,14 @@ export async function getExpenseCategoriesAction(token: string) {
       },
     });
 
-    if (response.status === 422) {
-      const error = await response.json();
-      const formErrors = getValidationErrors(error);
-
-      return {
-        errors: { message: JSON.stringify(formErrors) },
-        success: false,
-      };
-    }
-
     if (!response.ok) {
       return {
-        errors: { message: 'Internal Server Error' },
+        errors: {
+          message:
+            "Internal Server Error: " + JSON.stringify(await response.json()),
+        },
         success: false,
+        formName: "get-expense-categories",
       };
     }
 
@@ -34,22 +31,28 @@ export async function getExpenseCategoriesAction(token: string) {
     return {
       data: expenseCategoryResponse,
       success: true,
+      formName: "get-expense-categories",
     };
   } catch (error) {
+    console.log(error);
     return {
-      errors: { message: 'Failed to get expense catrgories.' },
+      errors: { message: "Failed to get expense catrgories." },
       success: false,
+      formName: "get-expense-categories",
     };
   }
 }
 
-export async function createExpenseCategoryAction(token: string, formData: ExpenseCategoryFormData) {
+export async function createExpenseCategoryAction(
+  token: string,
+  formData: ExpenseCategoryFormData,
+) {
   try {
     const response = await fetch(API_URL, {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
     });
@@ -61,13 +64,15 @@ export async function createExpenseCategoryAction(token: string, formData: Expen
       return {
         errors: { message: JSON.stringify(formErrors) },
         success: false,
+        formName: "create-expense-category",
       };
     }
 
     if (!response.ok) {
       return {
-        errors: { message: 'Failed to create expense category.' },
+        errors: { message: "Failed to create expense category." },
         success: false,
+        formName: "create-expense-category",
       };
     }
 
@@ -77,11 +82,13 @@ export async function createExpenseCategoryAction(token: string, formData: Expen
     return {
       data: expenseCategoryResponse,
       success: true,
+      formName: "create-expense-category",
     };
   } catch (error) {
     return {
-      errors: { message: 'Failed to create expense category.' },
+      errors: { message: "Failed to create expense category." },
       success: false,
+      formName: "create-expense-category",
     };
   }
 }
@@ -89,22 +96,23 @@ export async function createExpenseCategoryAction(token: string, formData: Expen
 export async function updateExpenseCategoryAction(
   token: string,
   id: string,
-  name: string
+  name: string,
 ) {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ name }),
     });
 
     if (!response.ok) {
       return {
-        errors: { message: 'Failed to update expense category.' },
+        errors: { message: "Failed to update expense category." },
         success: false,
+        formName: "update-expense-category",
       };
     }
 
@@ -114,11 +122,13 @@ export async function updateExpenseCategoryAction(
     return {
       data: expenseCategoryResponse,
       success: true,
+      formName: "update-expense-category",
     };
   } catch (error) {
     return {
-      errors: { message: 'Failed to update expense category.' },
+      errors: { message: "Failed to update expense category." },
       success: false,
+      formName: "update-expense-category",
     };
   }
 }
@@ -126,7 +136,7 @@ export async function updateExpenseCategoryAction(
 export async function deleteExpenseCategoryAction(token: string, id: string) {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -134,18 +144,21 @@ export async function deleteExpenseCategoryAction(token: string, id: string) {
 
     if (!response.ok) {
       return {
-        errors: { message: 'Failed to delete expense category.' },
+        errors: { message: "Failed to delete expense category." },
         success: false,
+        formName: "delete-expense-category",
       };
     }
 
     return {
       success: true,
+      formName: "delete-expense-category",
     };
   } catch (error) {
     return {
-      errors: { message: 'Failed to delete expense category.' },
+      errors: { message: "Failed to delete expense category." },
       success: false,
+      formName: "delete-expense-category",
     };
   }
 }

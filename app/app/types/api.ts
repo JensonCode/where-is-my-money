@@ -157,6 +157,8 @@ export interface components {
             id: number;
             /** Name */
             name: string;
+            /** Icon */
+            icon: string;
             /**
              * Created At
              * Format: date-time
@@ -172,6 +174,8 @@ export interface components {
         ExpenseCategoryRequest: {
             /** Name */
             name: string;
+            /** Icon */
+            icon: string;
         };
         /** ExpenseCategoryResponse */
         ExpenseCategoryResponse: {
@@ -179,6 +183,8 @@ export interface components {
             id: number;
             /** Name */
             name: string;
+            /** Icon */
+            icon: string;
             /**
              * Created At
              * Format: date-time
