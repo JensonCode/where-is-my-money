@@ -15,7 +15,7 @@ class ExpenseCategoryBase(BaseModel):
 
 class ExpenseCategoryRequest(BaseModel):
     name: str
-    icon: str = Field(default="dummy-icon")
+    icon: str
 
 
 class ExpenseCategoryResponse(BaseModel):

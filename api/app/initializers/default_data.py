@@ -21,7 +21,6 @@ class DefaultData:
             {"name": "Entertainment", "icon": "dummy-icon"},
             {"name": "Gifts", "icon": "dummy-icon"},
             {"name": "Luxury", "icon": "dummy-icon"},
-            {"name": "Other", "icon": "dummy-icon"},
         ]
 
     def init_default_users(self):
@@ -40,7 +39,7 @@ class DefaultData:
 
     def init_default_expense_categories(self):
         print("Initializing default expense categories")
-        if self.db.query(ExpenseCategory).count() >= len(self.expense_categories):
+        if self.db.query(ExpenseCategory).count() >= 0:
             print("Expense categories were already initialized")
             return
 
